@@ -42,10 +42,16 @@ Edit /etc/network/interfaces file with following command
 
 Below you will find example of configuration
 
+(IMPORTANT) Lines below are for [lab](i-tee.itcollege.ee) server
+
     auto eth0
     iface eth0 inet manual
     address 10.0.0.100/24
     gateway 10.0.0.1
+
+Usualy one would use (Pointed out by [Mikus](https://github.com/mikust))
+
+    iface eth0 inet static
 
 Enable the interface by executing
 
@@ -215,11 +221,24 @@ Check version
 
     mc --version
 
-Check shared library dependencies (DON'T USE ldd)
+Check shared library dependencies
+
+(IMPORTANT) Be aware that in some circumstances (e.g., where the program
+specifies an ELF interpreter other than ld-linux.so), some versions
+of ldd may attempt to obtain the dependency information by attempting
+to directly execute the program (which may lead to the execution of
+whatever code is defined in the program's ELF interpreter, and
+perhaps to execution of the program itself).  Thus, you should never
+employ ldd on an untrusted executable, since this may result in the
+execution of arbitrary code.
+
+    ldd /usr/bin/mc
+
+A safer alternative when dealing with untrusted executables is
 
     objdump -p /usr/bin/mc | grep NEEDED
 
-or
+Or
 
     readelf -d /usr/bin/mc | grep NEEDED
 
