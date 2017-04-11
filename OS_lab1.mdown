@@ -42,7 +42,7 @@ Edit /etc/network/interfaces file with following command
 
 Below you will find example of configuration
 
-(IMPORTANT) Lines below are for [lab](i-tee.itcollege.ee) server
+(IMPORTANT) Lines below are for [lab](https://i-tee.itcollege.ee) server
 
     auto eth0
     iface eth0 inet manual
