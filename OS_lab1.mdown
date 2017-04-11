@@ -84,8 +84,8 @@ Create required directories
 
 Move directories
 
-    mv /root/lab1/user01 /roor/lab1/user02/
-    mv /root/lab1/user03 /roor/lab1/user02/user01/
+    mv /root/lab1/user01 /root/lab1/user02/
+    mv /root/lab1/user03 /root/lab1/user02/user01/
 
 Delete directories
 
@@ -109,7 +109,7 @@ or
 
 ### Permissions
 
-Change permissions for group in directory /roor/lab1/user05
+Change permissions for group in directory /root/lab1/user05
 
     chmod -R g-rwx /root/lab1/user05
 
