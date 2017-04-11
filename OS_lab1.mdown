@@ -7,7 +7,7 @@
 
 ## Step 1 (Set up the connectivity)
 
-### Temporary IP (Optional)
+### (OPTIONAL) Temporary IP
 
 Check what Ip's are assigned
 
@@ -197,9 +197,13 @@ Change users home folder
 
     usermod -d /home/sysadmin2 -m sysadmin2
 
-Unlock user
+(OPTIONAL) Unlock user
 
     usermod -U -e 99999 sysadmin2
+
+Unlock if user does not have password
+
+    usermod -p sysadmin2
 
 ## Step 5 (Software management)
 
@@ -219,9 +223,9 @@ or
 
     readelf -d /usr/bin/mc | grep NEEDED
 
-Check shared library dependencies for a running process
+(OPTIONAL) Check shared library dependencies for a running process
 
-    pmap <PID> | grep lib
+    pmap 2345 | grep lib
 
 Refresh software repositories
 
