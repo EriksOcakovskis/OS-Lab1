@@ -129,15 +129,15 @@ In less finding a string sda
 
     :/sda
 
-Find next occurrence of sda by pressing <n>.
+Find next occurrence of sda by pressing 'n'.
 
-Go to start of file by pressing <p>.
+Go to start of file by pressing 'p'.
 
 Go to end of file by typing
 
     :100
 
-and pressing <p>.
+and press 'p'.
 
 ---
 
