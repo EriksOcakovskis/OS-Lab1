@@ -1,0 +1,236 @@
+
+# Lab 1
+
+## Configure keyboard language
+
+    loadkeys us
+
+## Step 1 (Set up the connectivity)
+
+### Temporary IP (Optional)
+
+Check what Ip's are assigned
+
+    ifconfig -a | grep inet
+
+Temporary configure IP
+
+    sudo ifconfig eth0 10.0.0.100 netmask 255.255.255.0
+
+Set default gateway
+
+    sudo route add default gw 10.0.0.1 eth0
+
+Check that routes are correct
+
+    route -n
+
+Add DNS
+
+    nameserver 8.8.8.8
+
+To remove temporary configuration
+
+    ip addr flush eth0
+
+
+### Static IP
+
+Edit /etc/network/interfaces file with following command
+
+    nano /etc/network/interfaces
+
+Below you will find example of configuration
+
+    auto eth0
+    iface eth0 inet manual
+    address 10.0.0.100/24
+    gateway 10.0.0.1
+
+Enable the interface by executing
+
+    sudo ifup eth0
+
+Disable the interface by executing
+
+    sudo ifdown eth0
+
+Additional info found in [Ubuntu network configuration](https://help.ubuntu.com/lts/serverguide/network-configuration.html)
+
+### Setup ssh connection with Ed25519-SHA-512 algorithm
+
+Generate keys on both machines
+
+    ssh-keygen -t ed25519 -a 1000
+
+Copy public keys between machines
+
+    ssh-copy-id -i ~/.ssh/id_ed25519.pub student@IP-address
+
+Alternative if ssh-copy-id does not work
+
+    cat ~/.ssh/id_rsa.pub | ssh <user>@<hostname> 'umask 0077; mkdir -p .ssh; cat >> .ssh/authorized_keys && echo "Key copied"'
+
+---
+
+## Step 2 (Work with files)
+
+### Folders
+
+Create required directories
+
+    sudo -i
+    mkdir -p /root/lab1/user{01..50}
+
+Move directories
+
+    mv /root/lab1/user01 /roor/lab1/user02/
+    mv /root/lab1/user03 /roor/lab1/user02/user01/
+
+Delete directories
+
+    rm -r /root/lab1/user04
+
+
+### Moving
+
+    cd ../../
+    cd ~
+    cd /etc/apt
+
+### Searching
+
+    find /var/log -name *.log
+
+    cat /etc/network/interfaces | gerp auto
+or
+
+    grep /etc/network/interfaces -e "auto"
+
+### Permissions
+
+Change permissions for group in directory /roor/lab1/user05
+
+    chmod -R g-rwx /root/lab1/user05
+
+Add a group audio2
+
+    groupadd audio2
+
+Change group ownership
+
+    chown -R :audio2 /root/lab1/user05
+
+### Viewing
+
+    less /var/log/syslog
+
+In less finding a string sda
+
+    :/sda
+
+Find next occurrence of sda by pressing <n>.
+
+Go to start of file by pressing <p>.
+
+Go to end of file by typing
+
+    :100
+
+and pressing <p>.
+
+---
+
+## Step 3 (Work with processes)
+
+    top
+
+Put top in background by ^z.
+
+View all the background jobs
+
+    jobs
+
+Move job id 1 to foreground
+
+    fg %1
+
+Kill top
+
+    pkill top
+
+or by job id
+
+    kill %1
+
+Find process lines with 'root' in them
+
+    ps aux | grep root
+
+Redirect output
+
+    ls -l >> permissions.txt
+
+## Step 4 (User management)
+
+Create a user
+
+    useradd -d /home/sysadmin -m -s /bin/bash sysadmin
+
+Add a group
+
+    groupadd devops
+
+Add user to group
+
+    usermod -a -G devops sysadmin
+
+Lock user
+
+    usermod -L -e 1 sysadmin
+
+Change user name
+
+    usermod -l sysadmin2 sysadmin
+
+Change users home folder
+
+    usermod -d /home/sysadmin2 -m sysadmin2
+
+Unlock user
+
+    usermod -U -e 99999 sysadmin2
+
+## Step 5 (Software management)
+
+Installing programs
+
+    apt-get install mc
+
+Check version
+
+    mc --version
+
+Check shared library dependencies (DON'T USE ldd)
+
+    objdump -p /usr/bin/mc | grep NEEDED
+
+or
+
+    readelf -d /usr/bin/mc | grep NEEDED
+
+Check shared library dependencies for a running process
+
+    pmap <PID> | grep lib
+
+Refresh software repositories
+
+    apt-get update
+
+Find programs which name or description contain a word "monitoring"
+
+    apt-cache search monitoring
+
+Full software upgrade
+
+    apt-get dist-upgrade
