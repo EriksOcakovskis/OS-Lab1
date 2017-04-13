@@ -42,16 +42,13 @@ Edit /etc/network/interfaces file with following command
 
 Below you will find example of configuration
 
-(IMPORTANT) Lines below are for [lab](https://i-tee.itcollege.ee) server
+Lines below are for [lab](https://i-tee.itcollege.ee) server
+(Pointed out by [Mikus](https://github.com/mikust)
 
     auto eth0
-    iface eth0 inet manual
+    iface eth0 inet static
     address 10.0.0.100/24
     gateway 10.0.0.1
-
-Usualy one would use (Pointed out by [Mikus](https://github.com/mikust))
-
-    iface eth0 inet static
 
 Enable the interface by executing
 
