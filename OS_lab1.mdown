@@ -254,3 +254,8 @@ Find programs which name or description contain a word "monitoring"
 Full software upgrade
 
     apt-get dist-upgrade
+
+Shutdown the system
+
+    systemctl poweroff / halt
+    sudo poweroff / halt
